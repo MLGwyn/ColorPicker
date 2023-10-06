@@ -1,32 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export function ColorPicker() {
+  const [hue, setHue] = useState(Math.round(Math.random() * 360).toString())
+  const [saturation, setSaturation] = useState(
+    Math.round(Math.random() * 100).toString()
+  )
+  const [lightness, setLightness] = useState(
+    Math.round(Math.random() * 100).toString()
+  )
+  function RandomColor() {
+    setHue(Math.round(Math.random() * 360).toString())
+    setSaturation(Math.round(Math.random() * 100).toString())
+    setLightness(Math.round(Math.random() * 100).toString())
+  }
+
   return (
     <div>
-      <p>some color goes here</p>
+      <div
+        className="well"
+        style={{ backgroundColor: `hsl(${hue},${saturation}%,${lightness}%)` }}
+      ></div>
+
       <div>
-        <label htmlFor="hue">H</label>
-        <input type="range" id="hue" name="hue" min="0" max="360" />
+        H
+        <input
+          value={hue}
+          type="range"
+          min="0"
+          max="360"
+          onChange={(event) => setHue(event.target.value)}
+        />
+        {hue}
       </div>
       <div>
-        <label htmlFor="saturation">S</label>
+        S
         <input
+          value={saturation}
           type="range"
-          id="saturation"
-          name="saturation"
-          min="0%"
-          max="100%"
+          min="0"
+          max="100"
+          onChange={(event) => setSaturation(event.target.value)}
         />
+        {saturation}%
       </div>
       <div>
-        <label htmlFor="lightness">L</label>
+        L
         <input
+          value={lightness}
           type="range"
-          id="lightness"
-          name="lightness"
-          min="0%"
-          max="100%"
+          min="0"
+          max="100"
+          onChange={(event) => setLightness(event.target.value)}
         />
+        {lightness}%
+      </div>
+      <div>
+        <button onClick={RandomColor}>Randomize!</button>
       </div>
     </div>
   )
